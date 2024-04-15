@@ -1,0 +1,29 @@
+{
+    "name": "citron/widgets",
+    "version": "1.0.0",
+    "type": "project",
+    "description": "Widgets for Citron",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dlsrc/citron-widgets"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Dmitry Lebedev",
+            "email": "dl@adios.ru",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4" : {
+            "Citron\\" : "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.3",
+        "citron/citron": "^1.0.0"
+    }
+}

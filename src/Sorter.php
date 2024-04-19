@@ -43,7 +43,7 @@ abstract class Sorter {
 		if (isset($_REQUEST[$this->sort])) {
 			$sort = (string) $_REQUEST[$this->sort];
 
-			if (!\ctype_digit($sort) || \str_starts_with($sort, '0')) {
+			if (!ctype_digit($sort) || str_starts_with($sort, '0')) {
 				$this->error = true;
 			}
 			else {
@@ -150,7 +150,7 @@ abstract class Sorter {
 	}
 
 	public function field(string $name, string $color = '', $field = NULL, $begin = false): void {
-		$i = \count($this->header);
+		$i = count($this->header);
 
 		$this->header[$i]['name']  = $name;
 		$this->header[$i]['title'] = $name;
@@ -194,10 +194,10 @@ abstract class Sorter {
 			$this->param = '';
 		}
 		else {
-			$this->param = \http_build_query($this->params, '', '', $this->encode);
+			$this->param = http_build_query($this->params, '', '', $this->encode);
 		}
 
-		foreach (\array_keys($this->header) as $i) {
+		foreach (array_keys($this->header) as $i) {
 			if (!$this->header[$i]['field']) {
 				continue;
 			}
@@ -205,8 +205,8 @@ abstract class Sorter {
 			if ($this->header[$i]['begin']) {
 				$value = 1;
 
-				if (\is_string($this->header[$i]['begin'])) {
-					$this->header[$i]['begin'] = \mb_strtolower($this->header[$i]['begin']);
+				if (is_string($this->header[$i]['begin'])) {
+					$this->header[$i]['begin'] = mb_strtolower($this->header[$i]['begin']);
 				}
 				else {
 					$this->header[$i]['begin'] = 'asc';
@@ -325,14 +325,14 @@ abstract class Sorter {
 				}
 			}
 
-			$order = \strtoupper($this->trend);
+			$order = strtoupper($this->trend);
 
 			if ($this->field == $value || (1 == $value && '' == $this->sql)) {
-				if (\is_array($this->header[$i]['field'])) {
-					foreach (\array_keys($this->header[$i]['field']) as $key) {
-						$f = \preg_split('/\s+/', \trim($this->header[$i]['field'][$key]));
+				if (is_array($this->header[$i]['field'])) {
+					foreach (array_keys($this->header[$i]['field']) as $key) {
+						$f = preg_split('/\s+/', trim($this->header[$i]['field'][$key]));
 
-						switch (\count($f)) {
+						switch (count($f)) {
 						case 1:
 							$this->header[$i]['field'][$key] = ''.$f[0].' '.$order;	
 							break;
@@ -352,13 +352,13 @@ abstract class Sorter {
 						$this->sql = '';
 					}
 					else {
-						$this->sql = ' ORDER BY '.\implode(', ', $this->header[$i]['field']).' ';
+						$this->sql = ' ORDER BY '.implode(', ', $this->header[$i]['field']).' ';
 					}
 				}
 				else {
-					$f = \preg_split('/\s+/', \trim($this->header[$i]['field']));
+					$f = preg_split('/\s+/', trim($this->header[$i]['field']));
 
-					switch (\count($f)) {
+					switch (count($f)) {
 					case 1:
 						$this->sql = ' ORDER BY '.$f[0].' '.$order.' ';	
 						break;

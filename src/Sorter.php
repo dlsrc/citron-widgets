@@ -141,12 +141,17 @@ abstract class Sorter {
 		return false;
 	}
 
-	public function target(string $name, string $value, int $enc_type = 0): void {
+	public function target(string $name, int|string $value, int $enc_type = 0): void {
 		if (0 == $enc_type) {
 			$enc_type = $this->encode;
 		}
 
-		$this->event[$name] = Util::getEncodedValue($value, $enc_type);
+		if (is_string($value)) {
+			$this->event[$name] = Util::getEncodedValue($value, $enc_type);
+		}
+		else {
+			$this->event[$name] = $value;
+		}
 	}
 
 	public function field(string $name, string $color = '', $field = NULL, $begin = false): void {

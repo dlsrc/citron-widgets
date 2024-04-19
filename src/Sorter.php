@@ -334,14 +334,14 @@ abstract class Sorter {
 
 						switch (\count($f)) {
 						case 1:
-							$this->header[$i]['field'][$key] = '`'.$f[0].'` '.$order;	
+							$this->header[$i]['field'][$key] = ''.$f[0].' '.$order;	
 							break;
 						case 2:
-							if ('BINARY' == $f[0]) $this->header[$i]['field'][$key] = 'BINARY `'.$f[1].'` '.$order;
-							else $this->header[$i]['field'][$key] = '`'.$f[0].'` '.$f[1];
+							if ('BINARY' == $f[0]) $this->header[$i]['field'][$key] = 'BINARY '.$f[1].' '.$order;
+							else $this->header[$i]['field'][$key] = ''.$f[0].' '.$f[1];
 							break;
 						case 3:
-							$this->header[$i]['field'][$key] = 'BINARY `'.$f[1].'` '.$f[2];
+							$this->header[$i]['field'][$key] = 'BINARY '.$f[1].' '.$f[2];
 							break;
 						default:
 							unset($this->header[$i]['field'][$key]);
@@ -360,14 +360,14 @@ abstract class Sorter {
 
 					switch (\count($f)) {
 					case 1:
-						$this->sql = ' ORDER BY `'.$f[0].'` '.$order.' ';	
+						$this->sql = ' ORDER BY '.$f[0].' '.$order.' ';	
 						break;
 					case 2:
-						if ('BINARY' == $f[0]) $this->sql = ' ORDER BY BINARY `'.$f[1].'` '.$order.' ';
-						else $this->sql = ' ORDER BY `'.$f[0].'` '.$f[1].' ';
+						if ('BINARY' == $f[0]) $this->sql = ' ORDER BY BINARY '.$f[1].' '.$order.' ';
+						else $this->sql = ' ORDER BY '.$f[0].' '.$f[1].' ';
 						break;
 					case 3:
-						$this->sql = ' ORDER BY BINARY `'.$f[1].'` '.$f[2].' ';
+						$this->sql = ' ORDER BY BINARY '.$f[1].' '.$f[2].' ';
 						break;
 					default:
 						$this->sql = '';

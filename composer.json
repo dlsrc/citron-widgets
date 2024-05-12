@@ -1,6 +1,6 @@
 {
     "name": "citron/widgets",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "project",
     "description": "Widgets for Citron",
     "license": "MIT",

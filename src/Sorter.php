@@ -382,9 +382,16 @@ abstract class Sorter {
 		}
 	}
 
-	public function order(): string {
+	public function order(string $default = ''): string {
 		$this->make();
-		return $this->sql;
+
+		if ('' != $this->sql) {
+			return $this->sql;
+		}
+
+		if ('' != $default) {
+			return ' ORDER BY '.$default.' ';	
+		}
 	}
 
 	public function query(): string {
@@ -394,7 +401,7 @@ abstract class Sorter {
 
 	public function sort(): string {
 		$this->make();
-		return (string)$this->field;
+		return (string) $this->field;
 	}
 
 	public function trend(): string {

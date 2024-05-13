@@ -392,6 +392,8 @@ abstract class Sorter {
 		if ('' != $default) {
 			return ' ORDER BY '.$default.' ';	
 		}
+
+		return '';
 	}
 
 	public function query(): string {

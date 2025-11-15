@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * (c) 2005-2024 Dmitry Lebedev <dl@adios.ru>
+ * (c) 2005-2025 Dmitry Lebedev <dl@adios.ru>
  * This source code is part of the Citron template engine.
  * Please see the LICENSE file for copyright and licensing information.
  */
@@ -90,6 +90,32 @@ abstract class Sorter {
 		$this->title_desc = '';
 	}
 
+	private function drop(): void {
+		$this->field = 1;
+		$this->trend = 'begin';
+		$_REQUEST[$this->sort]  = $this->field;
+		$_REQUEST[$this->order] = $this->trend;
+	}
+
+	public function except(string ...$events): void {
+		if (empty($events)) {
+			return;
+		}
+
+		foreach ($events as $event) {
+			if (isset($_REQUEST[$event])) {
+				$this->drop();
+				return;
+			}
+		}
+	}
+
+	public function only(string ...$events): void {
+		if (!array_all($events, fn ($event) => isset($_REQUEST[$event]))) {
+			$this->drop();
+		}
+	}
+
 	public function isError(): bool {
 		if ($this->check) {
 			return $this->error;
@@ -154,7 +180,7 @@ abstract class Sorter {
 		}
 	}
 
-	public function field(string $name, string $color = '', $field = NULL, $begin = false): void {
+	public function field(string $name, string $color = '', array|string|null $field = NULL, $begin = false): void {
 		$i = count($this->header);
 
 		$this->header[$i]['name']  = $name;
@@ -186,10 +212,7 @@ abstract class Sorter {
 
 		if ($this->field > $this->serial) {
 			$this->error = true;
-			$this->field = 1;
-			$this->trend = 'begin';
-			$_REQUEST[$this->sort]  = $this->field;
-			$_REQUEST[$this->order] = $this->trend;
+			$this->drop();
 		}
 
 		$this->check  = true;

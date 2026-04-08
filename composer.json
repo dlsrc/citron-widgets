@@ -1,6 +1,6 @@
 {
     "name": "citron/widgets",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "type": "project",
     "description": "Widgets for Citron",
     "license": "MIT",
@@ -23,7 +23,7 @@
         }
     },
     "require": {
-        "php": ">=8.3",
-        "citron/citron": "^1.0.0"
+        "php": ">=8.4",
+        "citron/citron": "^2.1.0"
     }
 }
